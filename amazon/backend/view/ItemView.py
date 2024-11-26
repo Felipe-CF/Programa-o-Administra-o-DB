@@ -1,12 +1,7 @@
-from django.db import models
+from rest_framework import viewsets
+from backend.models.Item import Item
+from backend.serializer.ItemSerializer import ItemSerializer
 
-class Item (models.Model):
-    nome = models.CharField(max_length=100)
-    descricao = models.CharField(max_length=100)
-    preco = models.DecimalField(max_digits=8, decimal_places=2)
-    estoque = models.IntegerField()
-    
-    def __str__(self):
-        return f'{self.nome} - {self.descricao} - R$ {self.preco} - Estoque: {self.estoque}'
-
-
+class ItemViewSet(viewsets.ModelViewSet):
+    queryset = Item.objects.all()
+    serializer_class = ItemSerializer 

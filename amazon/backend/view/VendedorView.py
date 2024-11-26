@@ -1,10 +1,7 @@
-from django.db import models
+from rest_framework import viewsets
+from backend.models.Vendedor import Vendedor
+from backend.serializer.VendedorSerializer import VendedorSerializer
 
-class Vendedor(models.Model):
-    nome = models.CharField(max_length=100)
-    email = models.EmailField(unique=True)
-    telefone = models.CharField(max_length=15)
-    data_cadastro = models.DateTimeField(auto_now_add=True)    
-
-    def __str__(self):
-        return self.nome
+class VendedorViewSet(viewsets.ModelViewSet):
+    queryset = Vendedor.objects.all()
+    serializer_class = VendedorSerializer 
