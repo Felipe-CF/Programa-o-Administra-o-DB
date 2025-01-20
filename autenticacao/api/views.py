@@ -11,9 +11,9 @@ from .serializer import UsuarioSerializer, Usuario
 from django.contrib.auth import authenticate, login
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.views import ObtainAuthToken
-# from rest_framework.authentication import BasicAuthentication
-# from rest_framework.decorators import authentication_classes, permission_classes
-# from rest_framework.authentication import TokenAuthentication, SessionAuthentication
+from rest_framework.authentication import BasicAuthentication
+from rest_framework.decorators import authentication_classes, permission_classes
+from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 
 
 class RegistroUsuarioView(APIView):
@@ -34,7 +34,7 @@ class LoginUsuarioView(ObtainAuthToken):
         if usuario is not None:
             login(request, usuario)
             token, created = Token.objects.get_or_create(user=usuario)
-            if created:
+            if not created:
                 token.delete()
                 token = Token.objects.create(user=usuario)
             return Response({
@@ -48,7 +48,8 @@ class LoginUsuarioView(ObtainAuthToken):
 
 
 class LogoutUsuarioView(APIView):
-    # permission_classes = [IsAuthenticated]
+    # authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def post(self, request):
         print(request.headers)
