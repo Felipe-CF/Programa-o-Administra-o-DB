@@ -1,0 +1,7 @@
+// // atualiza a api automaticamente
+// node --watch server.js 
+
+// // POSTGRESQL 
+
+// npm install pg-promise
+// 
