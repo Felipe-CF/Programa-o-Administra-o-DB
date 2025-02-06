@@ -56,5 +56,5 @@ class LogoutUsuarioView(APIView):
         token_key = request.auth.key
         token = Token.objects.get(key=token_key)
         token.delete()
-        return Response({'detail': 'Usuário deslogado com sucesso'})
+        return Response({'detail': 'usuário deslogado'}, status=status.HTTP_204_NO_CONTENT)
 
